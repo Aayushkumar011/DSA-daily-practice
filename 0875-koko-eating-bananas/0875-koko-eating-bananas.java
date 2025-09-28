@@ -1,8 +1,8 @@
 class Solution {
-    public static boolean canEat(int[] piles, int h, double m){
+    public static boolean canEat(int[] piles, int h, int m){
         long sum=0;
         for(int i=0;i<piles.length;i++){
-            sum+= (int)Math.ceil(piles[i]/m);
+            sum+= (piles[i]+m-1)/m;
             if(sum>h)return false;
         }
         return h>=sum;
