@@ -21,8 +21,10 @@ class Solution {
         boolean[][] visited = new boolean[n][m];
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                if(check(board,word,a,i,j,k,visited)){
-                    return true;
+                if(board[i][j]==word.charAt(k)){
+                    if(check(board,word,a,i,j,0,visited)){
+                        return true;
+                }
                 }
             }
         }
