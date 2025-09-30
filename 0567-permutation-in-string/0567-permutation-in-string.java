@@ -4,10 +4,7 @@ class Solution {
         char[] a2 = s2.toCharArray();
         Arrays.sort(a1);
         Arrays.sort(a2);
-        for(int i=0;i<a1.length;i++){
-            if(a1[i]!=a2[i])return false;
-        }
-        return true;
+        return Arrays.equals(a1, a2);
     }
     public boolean checkInclusion(String s1, String s2) {
         int w = s1.length();
