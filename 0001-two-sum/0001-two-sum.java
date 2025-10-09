@@ -1,22 +1,19 @@
 class Solution {
     public int[] twoSum(int[] nums, int target) {
-        int n = nums.length;
-        int[][] arr = new int[n][2];
-        for(int i=0;i<n;i++){
-            arr[i][0] = nums[i];
-            arr[i][1] = i;
-        }
-        Arrays.sort(arr,(a,b) -> a[0]-b[0]);
-        int i=0;
-        int j=n-1;
-        while(j>i){
-            int num = arr[i][0]+arr[j][0];
-            if(num==target){
-                return new int[]{arr[i][1],arr[j][1]};
+        HashSet<Integer> set = new HashSet<>();
+        int[] arr = new int[2];
+        int e = -1;
+        for(int i=0;i<nums.length;i++){
+            e=target-nums[i];
+            if(set.contains(e)){
+                arr[1]=i;
+                break;
             }
-            else if(num>target)j--;
-            else i++;
+            set.add(nums[i]);
         }
-    return new int[]{};
+        for(int i=0;i<arr[1];i++){
+            if(e==nums[i])arr[0]=i;
+        }
+    return arr;
     }
 }
