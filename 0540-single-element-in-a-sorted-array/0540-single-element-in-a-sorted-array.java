@@ -11,13 +11,13 @@ class Solution {
                 if((mid-i+1)%2==0){
                     i=mid+1;
                 }
-                else j=mid;
+                else j=mid-2;
             }
             else{
                 if((j-mid+1)%2==0){
                     j=mid-1;
                 }
-                else i=mid;
+                else i=mid+2;
             }
         }
     return -1;
