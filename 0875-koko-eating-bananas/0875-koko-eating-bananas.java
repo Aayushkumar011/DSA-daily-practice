@@ -1,28 +1,26 @@
 class Solution {
-    public static boolean canEat(int[] piles, int h, int m){
-        long sum=0;
+    public static boolean canEat(int mid,long h,int[] piles){
+        long val = 0;
         for(int i=0;i<piles.length;i++){
-            sum+= (piles[i]+m-1)/m;
-            if(sum>h)return false;
+            val+= (long)(mid+piles[i]-1)/mid;
         }
-        return h>=sum;
+    return val<=h;
     }
     public int minEatingSpeed(int[] piles, int h) {
-        int s = 1;
-        int f = 0;
-        int n = piles.length;
-        for(int i=0;i<n;i++){
-            f=Math.max(f,piles[i]);
+        int i = 1;
+        int j = Integer.MIN_VALUE;
+        for(int k=0;k<piles.length;k++){
+            j=Math.max(j,piles[k]);
         }
-        while(s<=f){
-            int mid = s+(f-s)/2;
-            if(canEat(piles,h,mid)){
-                f=mid-1;
+        int ans = -1;
+        while(i<=j){
+            int mid=i+(j-i)/2;
+            if(canEat(mid,h,piles)){
+                ans=mid;
+                j=mid-1;
             }
-            else{
-                s=mid+1;
-            }
+            else i=mid+1;
         }
-        return s;
+    return ans;
     }
 }
