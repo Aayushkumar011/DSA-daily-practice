@@ -1,32 +1,31 @@
 class Solution {
+    public static boolean completed(int[] time, long m, int totalTrips){
+        long sum = 0;
+        for(int i=0;i<time.length;i++){
+            if(time[i]<=m){
+                sum+=m/time[i];
+            }
+            else break;
+        }
+    return sum>=totalTrips;
+    }
     public long minimumTime(int[] time, int totalTrips) {
-        int maxTime = time[0];
-        for (int i = 1; i < time.length; i++) {
-            if (time[i] > maxTime) {
-                maxTime = time[i];
-            }
+        long s = 1;
+        long e = 0;
+        Arrays.sort(time);
+        for(int i=0;i<time.length;i++){
+            e=Math.max(e,time[i]);
         }
-
-        // Binary search range
-        long ans =0;
-        long left = 1;
-        long right = (long) maxTime * totalTrips;
-
-        while (left < right) {
-            long mid = left + (right - left) / 2;
-            long trips = 0;
-            for (int t : time) {
-                trips += mid / t; // number of trips this bus can make
+        e=e*totalTrips;
+        long ans = 0;
+        while(s<=e){
+            long mid = s+(e-s)/2;
+            if(completed(time,mid,totalTrips)){
+                ans = mid;
+                e=mid-1;
             }
-
-            if (trips >= totalTrips) {
-                ans=mid;
-                right = mid; // try to find smaller time
-            } else {
-                left = mid + 1; // need more time
-            }
+            else s=mid+1;
         }
-
-        return right;
+    return ans;
     }
 }
