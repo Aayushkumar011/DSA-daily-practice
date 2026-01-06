@@ -37,14 +37,14 @@ class Solution {
             dfs(i,0,n,m,grid,v,dir);
             dfs(i,m-1,n,m,grid,v,dir);
         }
-        for(int i=0;i<n;i++){
+        for(int i=0;i<m;i++){
             dfs(0,i,n,m,grid,v,dir);
             dfs(n-1,i,n,m,grid,v,dir);
         }
         for(int i=0;i<n;i++){
-            for(int j=0;j<n;j++){
+            for(int j=0;j<m;j++){
                 if(grid[i][j]==1 && !v[i][j]){
-                    ans = Math.max(ans,bfs(i,j,n,m,grid,v,dir));
+                    ans += bfs(i,j,n,m,grid,v,dir);
                 }
             }
         }
