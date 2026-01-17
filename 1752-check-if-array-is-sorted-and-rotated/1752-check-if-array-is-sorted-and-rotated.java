@@ -1,17 +1,16 @@
 class Solution {
     public boolean check(int[] nums) {
-        int c = 0;
+        int s = 0;
         int n = nums.length;
         for(int i=1;i<n;i++){
-            if(nums[i-1]>nums[i]){
-                c = i;
+            if(nums[i]<nums[i-1]){
+                s = i;
                 break;
             }
         }
-        if(c==0)return true;
-        for(int i=c+1;i<n+c;i++){
-            if(nums[(i-1)%n]>nums[i%n])return false;
+        for(int i=s+1;i<n+s;i++){
+            if(nums[i%n]<nums[(i-1)%n])return false;
         }
-        return true;
+    return true;
     }
 }
