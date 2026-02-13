@@ -1,18 +1,24 @@
 class Solution {
-    public double power(double x, long n){
-        if(n==0)return 1.0;
-        Double ans=power(x,n/2);
-        if(n%2==0){
-            ans = ans*ans;
+    public static double power(double x, long n){
+        double ans = 1.0;
+        while(n>0){
+            if(n%2==0){
+                x = x*x;
+                n /= 2;
+            }
+            else{
+                ans = ans*x;
+                n -= 1;
+            }
         }
-        else {ans = x*ans*ans;}
     return ans;
     }
     public double myPow(double x, int n) {
-        if(n<0){
-            n=-n;
-            x=1/x;
-        } 
-        return power(x,n);  
+        long N = n;
+        if(N<0){
+            x = 1/x;
+            N = N*-1;
+        }
+    return power(x,N);
     }
 }
