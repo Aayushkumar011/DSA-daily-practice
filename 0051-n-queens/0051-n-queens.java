@@ -1,17 +1,5 @@
 class Solution {
-    public static boolean valid(List<char[]> board,int r,int c,int n){
-        for(int i=r-1;i>=0;i--){
-            if(board.get(i)[c]=='Q')return false;
-        }
-        for(int i=r-1,j=c-1;i>=0 && j>=0;i--,j--){
-            if(board.get(i)[j]=='Q')return false;
-        }
-        for(int i=r-1,j=c+1;i>=0 && j<n;i--,j++){
-            if(board.get(i)[j]=='Q')return false;
-        }
-    return true;
-    }
-    public static void solve(List<char[]> board,List<List<String>> ans,int row,int n){
+    public static void solve(List<char[]> board,List<List<String>> ans,int row,int n,HashSet<Integer> co,HashSet<Integer> dig,HashSet<Integer> andig){
         if(row>=n){
             ArrayList<String> a = new ArrayList<>();
             for(int i=0;i<n;i++){
@@ -22,10 +10,16 @@ class Solution {
             return;
         }
         for(int col=0;col<n;col++){
-            if(valid(board,row,col,n)){
+            if(!co.contains(col) && !dig.contains(row+col) && !andig.contains(row-col)){
                 board.get(row)[col]='Q';
-                solve(board,ans,row+1,n);
+                co.add(col);
+                dig.add(row+col);
+                andig.add(row-col);
+                solve(board,ans,row+1,n,co,dig,andig);
                 board.get(row)[col]='.';
+                co.remove(col);
+                dig.remove(row+col);
+                andig.remove(row-col);
             }
         }
     }
@@ -37,7 +31,10 @@ class Solution {
             Arrays.fill(s,'.');
             board.add(s);
         }
-        solve(board,ans,0,n);
+        HashSet<Integer> co = new HashSet<>();
+        HashSet<Integer> dig = new HashSet<>();
+        HashSet<Integer> andig = new HashSet<>();
+        solve(board,ans,0,n,co,dig,andig);
     return ans;
     }
 }
